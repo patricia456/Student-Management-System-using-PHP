@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	//----------------------------------------------------
+	function loadids()
+	{
+		var getids = new XMLHttpRequest();
+		getids.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById('ids').innerHTML = this.responseText;
+			}
+		};
+		getids.open("POST", "getids.php", true);
+		getids.send();
+	}
+	//--------------------------------------------------------
+	function getrecord(idd)
+	{
+		var getids = new XMLHttpRequest();
+		getids.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200)
+			{
+				var msg = this.responseText;
+				var tempp = msg.split("_");
+				document.getElementById('fn').value = tempp[0];
+				document.getElementById('ln').value = tempp[1];
+				document.getElementById('mi').value = tempp[2];
+				document.getElementById('yl').value = tempp[3];
+				document.getElementById('sct').value = tempp[4];
+			}
+		};
+		getids.open("POST", "getrecs.php?idd=" + idd, true);
+		getids.send();
+	}
+	//---------------------------------------------------------------
+</script>
+</head>
+<body onload="loadids();">
+<form>
+<select id="ids" onchange="getrecord(this.value);"></select>
+<input type="text" id="fn" placeholder="Update First Name">
+<input type="text" id="ln" placeholder="Update Last Name">
+<input type="text" id="mi" placeholder="Update MI">
+<input type="text" id="yl" placeholder="Update Year Level">
+<input type="text" id="sct" placeholder="Update Section">
+<input type="button" id="upt" value="Update">
+<input type="reset" value="clear all">
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
